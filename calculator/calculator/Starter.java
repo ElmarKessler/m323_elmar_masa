@@ -13,8 +13,9 @@ public class Starter {
         String operation;
         Optional<Double> maybeSecondOperand;
 
-        ConsoleOutput.print("Welcome to Functional Calculator");
-        ConsoleOutput.print("Enter numbers (type 'done' to finish):");
+        try {
+            ConsoleOutput.print("Welcome to Functional Calculator");
+            ConsoleOutput.print("Enter numbers (type 'done' to finish):");
 
             while (true) {
                 String input = scanner.nextLine();
@@ -60,27 +61,13 @@ public class Starter {
         } finally {
             scanner.close();
         }
+    }
 
-        ConsoleOutput.print("Enter operation (add/subtract/multiply/divide/power):");
-        String operation = scanner.nextLine();
-
-        ConsoleOutput.print("Enter second operand:");
-        double secondOperand = scanner.nextDouble();
-
-        List<CalculationResult> results = CalculatorFunctions.processNumbers(
-                List.copyOf(numbers),
-                operation,
-                secondOperand);
-
-        results.forEach(result -> ConsoleOutput.print(CalculationResult.describeResult(result)));
-
-        List<CalculationResult> combined = CalculatorFunctions.combineOperations(
-                List.copyOf(numbers),
-                List.of(1.0, 2.0, 3.0));
-
-        ConsoleOutput.print("Combined operations:");
-        combined.forEach(result -> ConsoleOutput.printResult(result.operation(), result.value()));
-
-        scanner.close();
+    private Optional<Double> parseDoubleSafely(String input) {
+        try {
+            return Optional.of(Double.parseDouble(input));
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
     }
 }
