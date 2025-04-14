@@ -9,7 +9,7 @@ public class Starter {
 
     public void startCalculator() {
         Scanner scanner = new Scanner(System.in);
-        List<Double> numbers = new ArrayList<>();
+        final List<Double> numbers = new ArrayList<>();
         String operation;
         Optional<Double> maybeSecondOperand;
 
