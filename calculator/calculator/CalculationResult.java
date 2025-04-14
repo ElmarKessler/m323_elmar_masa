@@ -1,18 +1,23 @@
 package calculator;
 
-public record CalculationResult(String operation, double value) {
+record CalculationResult(String operation, double value) {
     public static String describeResult(CalculationResult result) {
-        return switch (result.operation()) {
-            case "add" -> "Addition result: " + result.value();
-            case "subtract" -> "Subtraction result: " + result.value();
-            case "multiply" -> "Multiplication result: " + result.value();
-            case "divide" -> result.value() == 0.0
-                    ? "Division by zero attempted"
-                    : "Division result: " + result.value();
-            case "power" -> result.value() > 1000
-                    ? "Large power result: " + result.value()
-                    : "Power result: " + result.value();
-            default -> "Result of " + result.operation() + ": " + result.value();
-        };
+        switch (result.operation()) {
+            case "add":
+                return "Addition result: " + result.value();
+            case "divide":
+                if (result.value() == Double.POSITIVE_INFINITY) {
+                    return "Division by zero attempted";
+                }
+                break;
+            case "power":
+                if (result.value() > 1000) {
+                    return "Large power result: " + result.value();
+                }
+                break;
+            default:
+                return "Result of " + result.operation() + ": " + result.value();
+        }
+        return "Invalid operation";
     }
 }
