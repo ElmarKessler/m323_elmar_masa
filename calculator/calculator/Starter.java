@@ -53,12 +53,6 @@ public class Starter {
                     List.copyOf(numbers), operation, secondOperand);
 
             results.forEach(result -> ConsoleOutput.print(CalculationResult.describeResult(result)));
-
-            List<CalculationResult> combined = CalculatorFunctions.combineOperations(
-                    List.copyOf(numbers), List.of(1.0, 2.0, 3.0));
-
-            ConsoleOutput.print("Combined operations:");
-            combined.forEach(result -> ConsoleOutput.printResult(result.operation(), result.value()));
         } finally {
             scanner.close();
         }
