@@ -34,12 +34,27 @@ public class Starter {
             }
 
             while (true) {
-                ConsoleOutput.print("Enter operation (add/subtract/multiply/divide/power):");
+                ConsoleOutput.print("Enter operation (add/subtract/multiply/divide/power/factorial):");
                 operation = scanner.nextLine().trim().toLowerCase();
-                if (CalculatorOperations.OPERATIONS.containsKey(operation)) {
+                if (CalculatorOperations.OPERATIONS.containsKey(operation) || "factorial".equals(operation)) {
                     break;
-                } else
+                } else {
                     ConsoleOutput.print("Invalid operation. Try again.");
+                }
+            }
+
+            if ("factorial".equals(operation)) {
+                List<CalculationResult> factorialResults = numbers.stream()
+                        .filter(n -> n >= 0 && n == Math.floor(n))
+                        .map(n -> {
+                            long result = CalculatorOperations.factorial(n.intValue());
+                            return new CalculationResult("factorial", result);
+                        })
+                        .toList();
+
+                factorialResults.forEach(result -> ConsoleOutput.print(CalculationResult.describeResult(result)));
+
+                return;
             }
 
             while (true) {
