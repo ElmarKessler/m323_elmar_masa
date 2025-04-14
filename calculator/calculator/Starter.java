@@ -10,6 +10,8 @@ public class Starter {
     public void startCalculator() {
         Scanner scanner = new Scanner(System.in);
         List<Double> numbers = new ArrayList<>();
+        String operation;
+        Optional<Double> maybeSecondOperand;
 
         try {
             ConsoleOutput.print("Welcome to Functional Calculator");
@@ -31,20 +33,23 @@ public class Starter {
                 return;
             }
 
-            ConsoleOutput.print("Enter operation (add/subtract/multiply/divide/power):");
-            String operation = scanner.nextLine().trim().toLowerCase();
-
-            if (!CalculatorOperations.OPERATIONS.containsKey(operation)) {
-                ConsoleOutput.print("Invalid operation. Exiting.");
-                return;
+            while (true) {
+                ConsoleOutput.print("Enter operation (add/subtract/multiply/divide/power):");
+                operation = scanner.nextLine().trim().toLowerCase();
+                if (CalculatorOperations.OPERATIONS.containsKey(operation)) {
+                    break;
+                } else
+                    ConsoleOutput.print("Invalid operation. Try again.");
             }
 
-            ConsoleOutput.print("Enter second operand:");
-            String secondInput = scanner.nextLine();
-            Optional<Double> maybeSecondOperand = parseDoubleSafely(secondInput);
-            if (maybeSecondOperand.isEmpty()) {
-                ConsoleOutput.print("Invalid number. Exiting.");
-                return;
+            while (true) {
+                ConsoleOutput.print("Enter second operand:");
+                String secondInput = scanner.nextLine();
+                maybeSecondOperand = parseDoubleSafely(secondInput);
+                if (maybeSecondOperand.isPresent()) {
+                    break;
+                } else
+                    ConsoleOutput.print("Invalid number. Try again.");
             }
 
             double secondOperand = maybeSecondOperand.get();
