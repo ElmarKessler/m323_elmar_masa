@@ -23,15 +23,4 @@ public class CalculatorFunctions {
                 .map(createCalculationPipeline(operation, secondOperand))
                 .collect(Collectors.toUnmodifiableList());
     }
-
-    public static List<CalculationResult> combineOperations(
-            List<Double> firstOperands,
-            List<Double> secondOperands) {
-        return firstOperands.stream()
-                .flatMap(a -> secondOperands.stream()
-                        .map(b -> new CalculationResult(
-                                "combined",
-                                CalculatorOperations.OPERATIONS.get("add").apply(a, b).orElse(0.0))))
-                .collect(Collectors.toUnmodifiableList());
-    }
 }
